@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React ,{useState} from 'react';
 import './App.css';
+import Container from './Components/Container';
+import Modal from 'react-modal'
+
+Modal.setAppElement('#root')
+
 
 function App() {
+
+  const [modalIsOpen,setmodalIsOpen] = useState(false)
+  const [filmData, setFilmData] =  useState({name:'',rating:''})
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div>
+     <Container /> 
+     <Modal isOpen={modalIsOpen} onRequestClose={()=>{setmodalIsOpen(!modalIsOpen)}}>
+       <h1>film information</h1>
+       <label>Film Name</label>
+       <input type="text" onChange={(e)=>{setFilmData({...filmData,name:e.target.value})}} />
+       <label>Film rating</label>
+       <input type="text" onChange={(e)=>{setFilmData({...filmData,rating:e.target.value})}} />
+       <button onClick={()=>{setmodalIsOpen(!modalIsOpen)}}>Close</button>
+     </Modal>
+     <button onClick={()=>{setmodalIsOpen(!modalIsOpen)}}>Add film</button>
+
+   </div>
   );
 }
 
